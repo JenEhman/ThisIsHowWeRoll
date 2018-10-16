@@ -16,7 +16,7 @@ namespace ThisIsHowWeRoll.Models
             {
                 StringBuilder results = new StringBuilder();
                 RollResults.ForEach(x => results.Append(x.Label).Append(": Result= ").Append(x.Result.ToString()).Append("; "));
-                return results.ToString();
+                return results.ToString().TrimEnd().Remove(results.ToString().TrimEnd().Length - 1);
             }
         }
 

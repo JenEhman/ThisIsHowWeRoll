@@ -120,7 +120,7 @@ namespace ThisIsHowWeRoll.Controllers
                         var dieParams = diceParams[0].Split("D");
                         newRoll.Dice = new List<Models.Die>();
 
-                        for (int i = 1; i <= Convert.ToInt16(dieParams[0]); i++)
+                        for (int i = 1; i <= Convert.ToInt32(dieParams[0]); i++)
                         {
                             Models.Die newDie = new Models.Die() { DieNumber = i, NumberOfSides = Convert.ToInt16(dieParams[1]), ResultDropped = false };
                             newRoll.Dice.Add(newDie);
