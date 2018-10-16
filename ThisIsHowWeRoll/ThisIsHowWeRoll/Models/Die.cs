@@ -17,6 +17,13 @@ namespace ThisIsHowWeRoll.Models
 
         public bool ResultDropped { get; set; }
 
+        public Die(int id, int sides)
+        {
+            NumberOfSides = sides;
+            DieNumber = id;
+            ResultDropped = false;
+        }
+
         public void RoleDie(Random randomGenerator)
         {            
             Result = randomGenerator.Next(1, NumberOfSides + 1);

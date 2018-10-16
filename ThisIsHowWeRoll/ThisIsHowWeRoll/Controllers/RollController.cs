@@ -60,8 +60,7 @@ namespace ThisIsHowWeRoll.Controllers
 
                 foreach (string rollInput in splitRollRequestInput)
                 {
-                    var parsedRoll = ParseRoll(rollInput);
-                    rollRequest.Rolls.Add(parsedRoll);
+                    rollRequest.Rolls.Add(new Models.Roll(rollInput));
                 }
 
                 //For each requested roll, roll the die
@@ -73,7 +72,7 @@ namespace ThisIsHowWeRoll.Controllers
                     //Roll all the dice in the roll
                     //we are using the same random number generator for all the die roles
                     //to ensure that we do not get repeats from initializing it too close together.
-                    var randomGenerator = new Random(DateTime.Now.Millisecond);
+                    var randomGenerator = new Random();
                     foreach (var die in roll.Dice)
                     {
                         die.RoleDie(randomGenerator);
@@ -96,42 +95,6 @@ namespace ThisIsHowWeRoll.Controllers
             }
         }
         
-        private static Models.Roll ParseRoll(string splitRollsInput)
-        {
-            Models.Roll newRoll = new Models.Roll() { RollInput = splitRollsInput };
-            var diceParams = splitRollsInput.Split(" ");
-
-            foreach (var param in diceParams)
-            {
-                switch (param)
-                {
-                    case "SUM":
-                        newRoll.HasSum = true;
-                        break;
-                    case "ADV":
-                        newRoll.HasAdvantage = true;
-                        break;
-                    case "DIS":
-                        newRoll.HasDisadvantage = true;
-                        break;
-                    default:
-                        //Add all the Die with the correct number of sides
-                        //XdY => where X= number of dice to roll and Y= number of sides on each die
-                        var dieParams = diceParams[0].Split("D");
-                        newRoll.Dice = new List<Models.Die>();
-
-                        for (int i = 1; i <= Convert.ToInt32(dieParams[0]); i++)
-                        {
-                            Models.Die newDie = new Models.Die() { DieNumber = i, NumberOfSides = Convert.ToInt16(dieParams[1]), ResultDropped = false };
-                            newRoll.Dice.Add(newDie);
-                        }
-
-                        break;
-                }
-            }
-            
-            return newRoll;
-        }
         #endregion
     }
 }
