@@ -9,5 +9,10 @@ namespace ThisIsHowWeRoll.Models
     public class RollRequest
     {
         public List<Roll> Rolls { get; set; }
+
+        public RollRequest()
+        {
+            Rolls = new List<Roll>();
+        }
     }
 }
